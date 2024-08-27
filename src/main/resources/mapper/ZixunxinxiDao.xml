@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cl.dao.ZixunxinxiDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.cl.entity.ZixunxinxiEntity" id="zixunxinxiMap">
+        <result property="jiaoshigonghao" column="jiaoshigonghao"/>
+        <result property="jiaoshixingming" column="jiaoshixingming"/>
+        <result property="xingbie" column="xingbie"/>
+        <result property="lianxidianhua" column="lianxidianhua"/>
+        <result property="zhuanyezizhi" column="zhuanyezizhi"/>
+        <result property="zixunwenti" column="zixunwenti"/>
+        <result property="zixunshijian" column="zixunshijian"/>
+        <result property="yonghuzhanghao" column="yonghuzhanghao"/>
+        <result property="yonghuxingming" column="yonghuxingming"/>
+        <result property="shhf" column="shhf"/>
+    </resultMap>
+
+    <select id="selectListView"
+		resultType="com.cl.entity.view.ZixunxinxiView" >
+
+		SELECT  zixunxinxi.* FROM zixunxinxi  zixunxinxi 	        
+        <where> 1=1 ${ew.sqlSegment}</where>
+	</select>
+	
+	<select id="selectView"
+		resultType="com.cl.entity.view.ZixunxinxiView" >
+		SELECT * FROM zixunxinxi  zixunxinxi <where> 1=1 ${ew.sqlSegment}</where>
+	</select>
+	
+	<select id="selectGroupBy"
+		resultType="com.cl.entity.view.ZixunxinxiView" >
+		select userid,username,paperid,papername,sum(myscore) myscore,ROUND(sum(case when myscore>0 then 1 else 0 end)/(sum(1)),2) accuracy from examrecord     
+        <where> 1=1 ${ew.sqlSegment}</where>
+        group by userid,username,paperid,papername  
+	</select>
+
+</mapper>
